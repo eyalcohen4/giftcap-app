@@ -1,24 +1,32 @@
 import React from 'react'
-import { useFonts } from '@use-expo/font'
 import { Text as DefaultText, View } from 'react-native'
-import { AppLoading } from 'expo'
+import { Colors, FontSizes } from '../styles'
 
 type Text = {
-  children: React.ReactNode,
-  size: FontSizes
+  children: React.ReactNode
+  size?: FontSizes
+  style?: any
+  bold?: boolean
 }
 
-const Text: React.FC<Text> = ({
-  children,
-  size
-}: Text) => {
+const Text: React.FC<Text> = ({ children, size, style, bold }: Text) => {
   return (
-    <DefaultText style={{ fontFamily: 'Varela', fontSize: size }}>{children}</DefaultText>
+    <DefaultText
+      style={{
+        fontFamily: bold ? 'RubikBold' : 'rubik',
+        fontSize: size,
+        color: Colors.white,
+        textAlign: 'right',
+        ...style,
+      }}
+    >
+      {children}
+    </DefaultText>
   )
 }
 
 Text.defaultProps = {
-    size: FontSizes.regular
+  size: FontSizes.regular,
 }
 
 export default Text

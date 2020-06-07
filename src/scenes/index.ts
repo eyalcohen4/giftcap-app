@@ -1,4 +1,5 @@
 import Home from './Home/Home'
-import Routes from './Home/Home'
+import Categories from './Categories/Categories'
+import Routes from './Routes'
 
-export { Home, Routes }
+export { Home, Routes, Categories }
