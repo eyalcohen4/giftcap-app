@@ -1,19 +1,19 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { SafeAreaView } from 'react-native'
+import { AppLoading } from 'expo'
+import { useFonts } from '@use-expo/font'
 
-export default function App() {
+import './src/languages'
+import { Routes } from './src/scenes'
+
+function App() {
+  let [fontsLoaded] = useFonts({
+    Varela: require('./assets/fonts/VarelaRound-Regular.ttf'),
+  })
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+    <SafeAreaView>{fontsLoaded ? <Routes /> : <AppLoading />}</SafeAreaView>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
