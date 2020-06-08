@@ -62,6 +62,7 @@ const AddStock: React.FC<AddStockProps> = ({
         </View>
         <View style={styles.input}>
           <Input
+            keyboardType="numeric"
             value={value}
             onChangeText={handleValueChange}
             placeholder={t('sum')}

@@ -82,8 +82,7 @@ const styles = StyleSheet.create({
     marginVertical: Spaces.vertical,
   },
   stocks: {
-    backgroundColor: Platform.OS === 'ios' ? Colors.white : undefined,
-    height: 85,
+    height: 95,
   },
   moreStocks: {
     marginTop: Spaces.vertical * 5,

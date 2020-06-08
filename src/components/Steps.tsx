@@ -11,7 +11,8 @@ type StepsProps = {
 
 type StepProps = {
   isSelected?: boolean
-  withLine?: boolean
+  withLine?: boolean,
+  index: number,
 }
 
 type StepPanelProps = {
@@ -19,12 +20,20 @@ type StepPanelProps = {
 }
 
 const StepIndicator: React.FC<StepProps> = ({
+  index,
   isSelected,
   withLine,
 }: StepProps) => {
+  const color = isSelected ? Colors.primary : Colors.white
+  const fontColor = isSelected ? Colors.white : Colors.primary
+
   return (
     <View style={styles.step}>
-      <Circle size="small" color={isSelected ? Colors.primary : Colors.white} />
+      <Circle size="small" color={color}>
+        <View style={styles.stepNumber}>
+          <Text style={{ color: fontColor }}>{index + 1}</Text>
+        </View>
+      </Circle>
       {withLine ? <View style={styles.divider} /> : null}
     </View>
   )
@@ -48,6 +57,7 @@ const Steps: React.FC<StepsProps> = ({ number, current }: StepsProps) => {
       {steps.map((_, index) => (
         <StepIndicator
           key={index}
+          index={index}
           isSelected={current === index}
           withLine={index < number - 1}
         />
@@ -80,6 +90,11 @@ const styles = StyleSheet.create({
   step: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  stepNumber: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
   },
   panel: {
     marginTop: Spaces.vertical * 5,

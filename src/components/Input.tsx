@@ -4,19 +4,20 @@ import { Text } from './'
 import { Colors, Spaces, FontSizes } from '../styles'
 
 type InputProps = TextInputProps & {
-  symbol: string,
-  error: string
+  symbol?: string,
+  error?: string,
+  style: any
 }
 
-const Input: React.FC<InputProps> = ({ symbol, error, ...rest }: InputProps) => {
+const Input: React.FC<InputProps> = ({ symbol, error, style, ...rest }: InputProps) => {
   return (
     <View>
       <TextInput
-        style={[styles.input, { borderColor: error ? Colors.error : Colors.primary }]}
+        style={[styles.input, { borderColor: error ? Colors.error : Colors.primary, fontWeight: 'bold' }, style]}
         placeholderTextColor={Colors.primary}
         {...rest}
       />
-      {symbol ? <Text size={FontSizes.small} style={styles.text}>{symbol}</Text> : null}
+      {symbol ? <Text size={FontSizes.small} bold style={styles.text}>{symbol}</Text> : null}
       {error ? <Text size={FontSizes.small} style={styles.error}>{error}</Text> : null}
     </View>
   )

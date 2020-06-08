@@ -30,12 +30,17 @@ function AppComponent() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header />
-      <Routes />
+      <View style={{ flex: 1 }}>
+        <Routes />
+      </View>
       <SlideInPanel
         isOpen={ui.previewStockModal.open}
         onClose={() => ui.closePreviewStockModal()}
       >
-        <AddStock stock={ui.previewStockModal.stock} handleAdd={handleAddStock} />
+        <AddStock
+          stock={ui.previewStockModal.stock}
+          handleAdd={handleAddStock}
+        />
       </SlideInPanel>
       <SlideInPanel
         height={Sizes.cartHeight}
@@ -66,7 +71,10 @@ function AppContainer() {
 
   return (
     <Provider root={root}>
-      <KeyboardAwareScrollView style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
+      <KeyboardAwareScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ flex: 1 }}
+      >
         {fontsLoaded ? <App /> : <AppLoading />}
       </KeyboardAwareScrollView>
     </Provider>

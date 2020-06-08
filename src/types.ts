@@ -7,6 +7,7 @@ export interface Stock {
   logo?: string
   categories?: []
   name: string
+  nameHe: string
   ticker: string
   weburl: string
 }

@@ -18,7 +18,7 @@ class Api {
     data?: any,
     headers?: any
   ) {
-    const base = 'http://7975cb2b3dcc.ngrok.io'
+    const base = 'http://239f7e8f1a86.ngrok.io'
     const fullUrl = `${base}/${url}`
 
     return axios({

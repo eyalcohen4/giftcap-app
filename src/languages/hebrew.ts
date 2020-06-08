@@ -10,5 +10,7 @@ export default {
   sum: 'סכום',
   addToGift: 'הוספה למתנה',
   back: 'חזרה',
-  addStockNoValueError: 'כדאי להכניס סכום'
+  addStockNoValueError: 'כדאי להכניס סכום',
+  next: 'הבא',
+  search: 'חיפוש'
 }

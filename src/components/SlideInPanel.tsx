@@ -36,7 +36,7 @@ const SlideInPanel: React.FC<SlideInPanelProps> = ({
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (e, gestureState) => {
-      if (gestureState.dy > 5) {
+      if (onClose && gestureState.dy > 5) {
         handleClose()
       }
     },
@@ -52,9 +52,16 @@ const SlideInPanel: React.FC<SlideInPanelProps> = ({
       duration={200}
     >
       {showTouchable ? <View style={styles.touchable} /> : null}
-      <View style={styles.content}>{children}</View>
+      <View
+        style={[
+          styles.content,
+          { marginTop: showTouchable ? Spaces.vertical : 0 },
+        ]}
+      >
+        {children}
+      </View>
       <TouchableOpacity onPress={handleClose}>
-        <Text style={styles.back}>{t('back')}</Text>
+        {onClose ? <Text style={styles.back}>{t('back')}</Text> : null}
       </TouchableOpacity>
     </Animatable.View>
   ) : null
@@ -80,7 +87,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#d8d8d8',
   },
   content: {
-    marginTop: Spaces.vertical * 3,
+    flex: 1,
+    width: '100%',
   },
   back: {
     marginTop: Spaces.vertical,
