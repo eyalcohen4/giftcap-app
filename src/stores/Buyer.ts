@@ -1,4 +1,5 @@
 import { observable } from 'mobx'
+import { Gift, GiftItem } from '../types'
 
 class BuyStore {
   @observable steps = [
@@ -15,15 +16,23 @@ class BuyStore {
       isFinished: false,
     },
   ]
+  @observable gift: Gift = {
+    items: [],
+  }
 
   @observable currentStep = 0
 
-  next() {
+  next = () => {
     this.currentStep++
   }
 
-  previous() {
+  previous = () => {
     this.currentStep--
+  }
+
+  addGiftItem = (item: GiftItem) => {
+    console.log(item, this.gift)
+    this.gift.items.push(item)
   }
 }
 

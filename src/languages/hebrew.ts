@@ -4,5 +4,11 @@ export default {
   giftCap: 'GiftCap',
   all: "הכל",
   thePopular: 'הפופולריות',
-  moreStocks: 'עוד מניות'
+  moreStocks: 'עוד מניות',
+  addStockPrice: 'מה סכום המתנה?',
+  currency: '₪',
+  sum: 'סכום',
+  addToGift: 'הוספה למתנה',
+  back: 'חזרה',
+  addStockNoValueError: 'כדאי להכניס סכום'
 }

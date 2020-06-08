@@ -3,23 +3,28 @@ import { StyleSheet, TouchableOpacity, Image, View } from 'react-native'
 
 import { Circle, Text } from './'
 import { Stock } from '../types'
+import { CircleSize } from './Circle'
 
 type StockBrandProps = {
-  stock: Stock
+  stock: Stock,
+  size?: CircleSize,
   handleClick: Function
 }
 
 const StockBrand: React.FC<StockBrandProps> = ({
   stock,
+  size,
   handleClick,
 }: StockBrandProps) => {
+  const imageSize = size === 'small' ? 30 : 50
+
   return (
-    <TouchableOpacity style={{ height: '100%' }} onPress={() => handleClick(stock)}>
-      <Circle>
+    <TouchableOpacity onPress={() => handleClick(stock)}>
+      <Circle size={size}>
         <View style={styles.container}>
           <Image
             source={{ uri: stock.logo }}
-            style={{ height: 50, width: 50 }}
+            style={{ height: imageSize, width: imageSize }}
             resizeMode="contain"
           />
         </View>
@@ -35,5 +40,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 })
+
+StockBrand.defaultProps = {
+  size: 'big'
+}
 
 export default StockBrand

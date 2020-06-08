@@ -18,7 +18,7 @@ class Api {
     data?: any,
     headers?: any
   ) {
-    const base = 'http://7d53bd9bc750.ngrok.io'
+    const base = 'http://7975cb2b3dcc.ngrok.io'
     const fullUrl = `${base}/${url}`
 
     return axios({
@@ -57,7 +57,7 @@ class Api {
   }
 
   async getCategories() {
-    const request = await this.sendRequest('GET', 'categories?stocks=true')
+    const request = await this.sendRequest('GET', 'categories')
     return request.data.categories
   }
 }

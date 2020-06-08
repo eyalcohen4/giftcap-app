@@ -7,6 +7,10 @@ import Button from './Button'
 import StockBrand from './StockBrand'
 import SlideInPanel from './SlideInPanel'
 import CategoryLink from './CategoryLink'
+import AddStock from './AddStock'
+import Price from './Price'
+import Input from './Input'
+import BuyCart from './BuyCart'
 
 export {
   Header,
@@ -19,4 +23,8 @@ export {
   StockBrand,
   SlideInPanel,
   CategoryLink,
+  AddStock,
+  Price,
+  Input,
+  BuyCart,
 }

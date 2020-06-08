@@ -3,19 +3,29 @@ import { SafeAreaView, I18nManager, View, Text } from 'react-native'
 import { Provider, inject, observer } from 'mobx-react'
 import { AppLoading } from 'expo'
 import { useFonts } from '@use-expo/font'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import 'mobx-react-lite/batchingForReactNative'
 
 import './src/languages'
 import { Routes } from './src/scenes'
 import RootStore from './src/stores'
-import { SlideInPanel, Header } from './src/components'
+import { Header, SlideInPanel, AddStock, BuyCart } from './src/components'
+import { Sizes } from './src/styles'
 
 I18nManager.forceRTL(true)
 
 const root = new RootStore()
 
 function AppComponent() {
-  const { ui } = root
+  const { ui, buyer } = root
+
+  const handleAddStock = (item) => {
+    buyer.addGiftItem(item)
+    setTimeout(() => {
+      ui.closePreviewStockModal()
+    }, 100)
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -23,11 +33,16 @@ function AppComponent() {
       <Routes />
       <SlideInPanel
         isOpen={ui.previewStockModal.open}
-        onClose={ui.closePreviewStockModal}
+        onClose={() => ui.closePreviewStockModal()}
       >
-        <View style={{ backgroundColor: '#ffff', height: 300 }}>
-          <Text> HELLO </Text>
-        </View>
+        <AddStock stock={ui.previewStockModal.stock} handleAdd={handleAddStock} />
+      </SlideInPanel>
+      <SlideInPanel
+        height={Sizes.cartHeight}
+        isOpen={buyer.gift.items?.length > 0 && !ui.previewStockModal.open}
+        showTouchable={false}
+      >
+        <BuyCart />
       </SlideInPanel>
     </SafeAreaView>
   )
@@ -40,6 +55,7 @@ function AppContainer() {
     Varela: require('./assets/fonts/VarelaRound-Regular.ttf'),
     rubik: require('./assets/fonts/Rubik-Regular.ttf'),
     RubikBold: require('./assets/fonts/Rubik-Bold.ttf'),
+    RubikMedium: require('./assets/fonts/Rubik-Medium.ttf'),
   })
 
   useEffect(() => {
@@ -50,7 +66,9 @@ function AppContainer() {
 
   return (
     <Provider root={root}>
-      {fontsLoaded ? <App /> : <AppLoading />}
+      <KeyboardAwareScrollView style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
+        {fontsLoaded ? <App /> : <AppLoading />}
+      </KeyboardAwareScrollView>
     </Provider>
   )
 }

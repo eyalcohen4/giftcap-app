@@ -1,22 +1,28 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { TouchableOpacity, StyleSheet } from 'react-native'
 
 import { Text } from './'
 import { Category } from '../types'
 import { Spaces } from '../styles'
 
 type CategoryLinkProps = {
-  category: Category
+  category: Category,
+  onPress?: Function
 }
 
 const CategoryLink: React.FC<CategoryLinkProps> = ({
   category,
+  onPress
 }: CategoryLinkProps) => {
   return (
-    <View style={[styles.container, { backgroundColor: category.color }]}>
+    <TouchableOpacity style={[styles.container, { backgroundColor: category.color }]} onPress={() => onPress()}>
       <Text>{category.name.he}</Text>
-    </View>
+    </TouchableOpacity>
   )
+}
+
+CategoryLink.defaultProps = {
+  onPress: () => {}
 }
 
 const styles = StyleSheet.create({

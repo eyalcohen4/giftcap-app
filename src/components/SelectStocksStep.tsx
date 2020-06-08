@@ -59,7 +59,7 @@ const SelectStocksStep: React.FC<SelectStockStepProps> = ({
           {stocks.popular?.stocks?.map((stock) => (
             <View
               key={stock.symbol}
-              style={{ paddingHorizontal: Spaces.horizontal }}
+              style={{ paddingHorizontal: Spaces.horizontal, }}
             >
               <StockBrand stock={stock} handleClick={onStockClick} />
             </View>

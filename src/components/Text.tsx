@@ -7,13 +7,14 @@ type Text = {
   size?: FontSizes
   style?: any
   bold?: boolean
+  bolder?: boolean
 }
 
-const Text: React.FC<Text> = ({ children, size, style, bold }: Text) => {
+const Text: React.FC<Text> = ({ children, size, style, bold, bolder }: Text) => {
   return (
     <DefaultText
       style={{
-        fontFamily: bold ? 'RubikBold' : 'rubik',
+        fontFamily: bold ? 'RubikMedium' : bolder ? 'RubikBold' : 'rubik',
         fontSize: size,
         color: Colors.white,
         textAlign: 'right',
