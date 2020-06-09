@@ -34,16 +34,17 @@ export interface Data<T> {
 }
 
 export interface GiftItem {
-  symbol: string;
-  value: number;
+  id: string
+  symbol: string
+  value: number
 }
 
 export interface Gift {
-  items: GiftItem[],
-	message: string
-	giverName: string
-	giverEmail: string
-	receiverName: string
-	receiverPhone: string,
-	isOpen: boolean
+  items: GiftItem[]
+  message: string
+  giverName: string
+  giverEmail: string
+  receiverName: string
+  receiverPhone: string
+  isOpen: boolean
 }

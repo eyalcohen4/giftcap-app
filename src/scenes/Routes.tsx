@@ -7,15 +7,25 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack'
 
-import { Home, Categories, CategoryExplorer } from './'
-import { CATEGORIES_ROUTE_NAME, CATEGORY_ROUTE_NAME, HOME_ROUTE_NAME } from '../constants'
+import { Home, Categories, CategoryExplorer, GiftPreview } from './'
+import {
+  CATEGORIES_ROUTE_NAME,
+  CATEGORY_ROUTE_NAME,
+  HOME_ROUTE_NAME,
+  GIFT_PREVIEW_ROUTE_NAME,
+  SENT_GIFT_SUCCESS_ROUTE_NAME
+} from '../constants'
+import GiftSent from './GiftSent'
 
 const Stack = createStackNavigator()
 
-type RoutesProps = {}
-const Routes: React.FC<RoutesProps> = ({}: RoutesProps) => {
+type RoutesProps = {
+  onRef: Function
+}
+
+const Routes: React.FC<RoutesProps> = ({ onRef }: RoutesProps) => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={onRef}>
       <Stack.Navigator
         style={{ overflow: 'visible' }}
         initialRouteName="Home"
@@ -32,6 +42,20 @@ const Routes: React.FC<RoutesProps> = ({}: RoutesProps) => {
           component={CategoryExplorer}
           options={{
             ...TransitionPresets.ModalSlideFromBottomIOS,
+          }}
+        />
+        <Stack.Screen
+          name={GIFT_PREVIEW_ROUTE_NAME}
+          component={GiftPreview}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forNoAnimation
+          }}
+        />
+        <Stack.Screen
+          name={SENT_GIFT_SUCCESS_ROUTE_NAME}
+          component={GiftSent}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forNoAnimation
           }}
         />
       </Stack.Navigator>

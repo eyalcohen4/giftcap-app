@@ -1,3 +1,5 @@
 export const CATEGORIES_ROUTE_NAME = 'categories'
 export const CATEGORY_ROUTE_NAME = 'category'
 export const HOME_ROUTE_NAME = 'home'
+export const GIFT_PREVIEW_ROUTE_NAME = 'gift-preview'
+export const SENT_GIFT_SUCCESS_ROUTE_NAME = 'gift-sent'

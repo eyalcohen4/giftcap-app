@@ -1,5 +1,6 @@
 import React from 'react'
-import { ScrollView, View, StyleSheet } from 'react-native'
+import { ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 import { inject, observer } from 'mobx-react'
 import Root from '../stores'
 
@@ -8,10 +9,11 @@ import { Colors, FontSizes, Spaces } from '../styles'
 import { useTranslation } from 'react-i18next'
 
 type BuyCartProps = {
-  root?: Root
+  root?: Root,
+  onPressNext: Function
 }
 
-const BuyCart: React.FC<BuyCartProps> = ({ root }: BuyCartProps) => {
+const BuyCart: React.FC<BuyCartProps> = ({ root, onPressNext }: BuyCartProps) => {
   const { t } = useTranslation()
   const { buyer, stocks, ui } = root as Root
 
@@ -22,22 +24,30 @@ const BuyCart: React.FC<BuyCartProps> = ({ root }: BuyCartProps) => {
         horizontal={true}
         contentContainerStyle={{ backgroundColor: 'transparent' }}
       >
-        {buyer.gift.items?.map(({ symbol, value }) => (
-          <View key={symbol} style={styles.item}>
+        {buyer.gift.items?.map((item) => (
+          <View key={item.symbol} style={styles.item}>
+            <TouchableOpacity style={styles.removeItem} onPress={() => buyer.removeGiftItem(item)}>
+              <MaterialIcons
+                name="remove-circle-outline"
+                size={28}
+              />
+            </TouchableOpacity>
             <StockBrand
-              stock={stocks.getStockBySymbol(symbol)}
+              stock={stocks.getStockBySymbol(item.symbol)}
               size="small"
               handleClick={() => {}}
             />
             <Text size={FontSizes.smaller} style={styles.price}>
-              {value}
+              {item.value}
               {t('currency')}
             </Text>
           </View>
         ))}
       </ScrollView>
       <View style={styles.next}>
-        <Button onPress={buyer.next}>{t('next')}</Button>
+        <Button onPress={onPressNext}>
+          <Text>{t('next')}</Text>
+        </Button>
       </View>
     </View>
   )
@@ -48,22 +58,27 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     padding: Spaces.vertical * 2,
-    alignItems: 'flex-start',
   },
   items: {
     flexDirection: 'row',
-    backgroundColor: 'transparent' 
+    backgroundColor: 'transparent',
   },
   item: {
+    position: 'relative',
     padding: Spaces.vertical,
     alignItems: 'center',
-    justifyContent: 'center',
+    zIndex: 1,
+  },
+  removeItem: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    zIndex: 2,
   },
   price: {
     color: Colors.primary,
   },
   next: {
-    marginTop: Spaces.vertical * 2,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

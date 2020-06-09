@@ -8,7 +8,7 @@ class RootStore {
   ui: UiStore
 
   constructor() {
-    this.buyer = new BuyerStore()
+    this.buyer = new BuyerStore(this)
     this.stocks = new StocksStore()
     this.ui = new UiStore()
     

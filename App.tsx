@@ -12,6 +12,7 @@ import { Routes } from './src/scenes'
 import RootStore from './src/stores'
 import { Header, SlideInPanel, AddStock, BuyCart } from './src/components'
 import { Sizes } from './src/styles'
+import { GIFT_PREVIEW_ROUTE_NAME, HOME_ROUTE_NAME } from './src/constants'
 
 I18nManager.forceRTL(true)
 
@@ -19,19 +20,36 @@ const root = new RootStore()
 
 function AppComponent() {
   const { ui, buyer } = root
+  let navigation
+  let route
+
+  const setNavigation = (ref: any) => {
+    if (!navigation) {
+      navigation = ref
+    }
+  }
 
   const handleAddStock = (item) => {
     buyer.addGiftItem(item)
+
     setTimeout(() => {
       ui.closePreviewStockModal()
     }, 100)
+  }
+
+  const handleBuyCartNext = () => {
+    if (navigation) {
+      navigation.navigate(HOME_ROUTE_NAME)
+    }
+
+    buyer.next()
   }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header />
       <View style={{ flex: 1 }}>
-        <Routes />
+        <Routes onRef={navRef => setNavigation(navRef)} />
       </View>
       <SlideInPanel
         isOpen={ui.previewStockModal.open}
@@ -44,10 +62,10 @@ function AppComponent() {
       </SlideInPanel>
       <SlideInPanel
         height={Sizes.cartHeight}
-        isOpen={buyer.gift.items?.length > 0 && !ui.previewStockModal.open}
+        isOpen={buyer.gift.items?.length > 0 && !ui.previewStockModal.open && !ui.hideBuyCart}
         showTouchable={false}
       >
-        <BuyCart />
+        <BuyCart onPressNext={handleBuyCartNext} />
       </SlideInPanel>
     </SafeAreaView>
   )

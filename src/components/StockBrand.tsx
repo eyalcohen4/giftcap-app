@@ -16,7 +16,7 @@ const StockBrand: React.FC<StockBrandProps> = ({
   size,
   handleClick,
 }: StockBrandProps) => {
-  const imageSize = size === 'small' ? 30 : 50
+  const imageSize = size === 'small' ? 35 : 50
 
   return (
     <TouchableOpacity onPress={() => handleClick(stock)}>

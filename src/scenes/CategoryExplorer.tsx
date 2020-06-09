@@ -1,31 +1,20 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { inject, observer } from 'mobx-react'
-import { ScrollView, View, TouchableOpacity, StyleSheet } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons';
-import { Grid, Row, Col } from 'react-native-easy-grid'
-import { generate } from 'shortid'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 
 import Root from '../stores'
 import { Stock } from '../types'
-import { Text, StockBrand } from '../components'
+import { Text, StocksGrid } from '../components'
 import { Spaces, Colors } from '../styles'
 import { CATEGORIES_ROUTE_NAME } from '../constants'
+import toRows from '../utils/toRows'
 
 type CategoryExplorerProps = {
   route: any
   navigation: any
   root: Root
-}
-
-function toRows(from = [], index = 0) {
-  const result = []
-
-  for (let l = from.length + 1; index + 3 < l; index += 3) {
-    result.push(from.slice(index, index + 3))
-  }
-
-  return result
 }
 
 const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
@@ -64,32 +53,14 @@ const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
           <Text style={{ color: Colors.white }}>{category.name.he}</Text>
         </View>
       </View>
-      <ScrollView
-        contentContainerStyle={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {rows.map((row) => (
-          <Row key={generate()} style={{ width: '100%', flex: 1, justifyContent: 'center' }}>
-            {row.map((stock) => (
-              <View key={stock.symbol} style={styles.stock}>
-                <StockBrand
-                  stock={stock}
-                  handleClick={() => handleStockClick(stock)}
-                />
-              </View>
-            ))}
-          </Row>
-        ))}
-      </ScrollView>
+      <StocksGrid stocks={categoryStocks} handleStockPress={handleStockClick} />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: Spaces.horizontal * 2,
+    paddingVertical: Spaces.vertical * 2,
     backgroundColor: Colors.secondary,
     justifyContent: 'center',
     flex: 1,
@@ -120,10 +91,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '20%',
     height: 40,
-  },
-  stock: {
-    marginVertical: Spaces.vertical * 1,
-    marginHorizontal: Spaces.vertical * 3,
   },
 })
 

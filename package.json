@@ -17,6 +17,7 @@
     "expo": "~37.0.3",
     "expo-constants": "~9.0.0",
     "i18next": "^19.4.5",
+    "libphonenumber-js": "^1.7.52",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
     "react": "~16.9.0",

@@ -11,6 +11,9 @@ import AddStock from './AddStock'
 import Price from './Price'
 import Input from './Input'
 import BuyCart from './BuyCart'
+import StocksGrid from './StocksGrid'
+import DetailsStep from './DetailsStep'
+import Present from './Present'
 
 export {
   Header,
@@ -27,4 +30,7 @@ export {
   Price,
   Input,
   BuyCart,
+  StocksGrid,
+  DetailsStep,
+  Present
 }

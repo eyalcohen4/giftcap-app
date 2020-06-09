@@ -1,24 +1,37 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { View, StyleSheet } from 'react-native'
-import { Header, Steps, StepPanel, SelectStocksStep } from '../../components'
-import { Colors, Spaces } from '../../styles'
+
+import GiftPreview from '../GiftPreview'
 import RootStore from '../../stores'
+import { Colors, Spaces } from '../../styles'
+import { SENT_GIFT_SUCCESS_ROUTE_NAME } from '../../constants'
+import { Steps, StepPanel, SelectStocksStep, DetailsStep } from '../../components'
 
 type HomeProps = {
-  navigation: any,
+  navigation: any
   root?: RootStore
 }
 
 const Home: React.FC<HomeProps> = ({ root, navigation }: HomeProps) => {
-  const { buyer } = root as RootStore
+  const { buyer, ui } = root as RootStore
+
+  const handleFinish = () => {
+    navigation.navigate(SENT_GIFT_SUCCESS_ROUTE_NAME)
+  }
 
   return (
     <View style={styles.home}>
       <View style={styles.main}>
         <Steps number={buyer.steps.length} current={buyer.currentStep} />
-        <StepPanel>
+        <StepPanel show={buyer.currentStep === 0}>
           <SelectStocksStep navigate={navigation.navigate} />
+        </StepPanel>
+        <StepPanel show={buyer.currentStep === 1}>
+          <GiftPreview />
+        </StepPanel>
+        <StepPanel show={buyer.currentStep === 2}>
+          <DetailsStep onFinish={handleFinish} />
         </StepPanel>
       </View>
     </View>
@@ -31,10 +44,9 @@ const styles = StyleSheet.create({
   },
   main: {
     backgroundColor: Colors.secondary,
-    paddingVertical: Spaces.vertical * 3,
+    paddingVertical: Spaces.vertical,
     paddingHorizontal: Spaces.horizontal * 2,
     flex: 1,
-    alignItems: 'flex-start',
   },
 })
 

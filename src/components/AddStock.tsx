@@ -24,7 +24,6 @@ const AddStock: React.FC<AddStockProps> = ({
   const defaultValues = [100, 300, 500]
 
   const handleValueChange = (value) => {
-    console.log(value)
     setValue(value)
   }
 
@@ -72,7 +71,9 @@ const AddStock: React.FC<AddStockProps> = ({
         </View>
       </View>
       <View style={styles.footer}>
-        <Button onPress={() => handleAddPress()}>{t('addToGift')}</Button>
+        <Button onPress={() => handleAddPress()}>
+          <Text>{t('addToGift')}</Text>
+        </Button>
       </View>
     </View>
   )
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: Spaces.vertical * 2,
+    fontWeight: "900",
   },
   footer: {
     marginTop: Spaces.vertical * 2,

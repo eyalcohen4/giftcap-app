@@ -11,15 +11,20 @@ class Ui {
     open: false,
     stock: null,
   }
+  @observable hideBuyCart: boolean = false 
 
-  openPreviewStockModal(stock: Stock) {
+  openPreviewStockModal = (stock: Stock) => {
     this.previewStockModal.open = true
     this.previewStockModal.stock = stock
   }
   
-  closePreviewStockModal() {
+  closePreviewStockModal = () => {
     this.previewStockModal.open = false
     this.previewStockModal.stock = null
+  }
+  
+  toggleBuyCart = (isOpen: boolean = false) => {
+    this.hideBuyCart = isOpen || !this.hideBuyCart
   }
 }
 

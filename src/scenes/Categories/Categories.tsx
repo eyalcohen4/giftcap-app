@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
-import { View, ScrollView, StyleSheet } from 'react-native'
+import { View, ScrollView, StyleSheet, Dimensions } from 'react-native'
 import { inject, observer } from 'mobx-react'
 import { generate } from 'shortid'
 import { MaterialIcons } from '@expo/vector-icons'
 
 import Root from '../../stores'
-import { CategoryLink, Input, StockBrand, Text } from '../../components'
+import {
+  CategoryLink,
+  Input,
+  StockBrand,
+  Text,
+  StocksGrid,
+} from '../../components'
 import { CATEGORY_ROUTE_NAME, HOME_ROUTE_NAME } from '../../constants'
-import { Colors, Spaces } from '../../styles'
+import { Colors, Spaces, Sizes } from '../../styles'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
@@ -50,14 +56,8 @@ const Categories: React.FC<CategoriesProps> = ({
 
   const handleSearch = (value) => {
     setSearch(value)
-    console.log(value)
-    const filtered = Object.values(stocks.stocks.byId).filter(
-      ({ name, nameHe }) =>
-        name.includes(value) ||
-        nameHe.includes(value) ||
-        name === value ||
-        nameHe === value
-    )
+
+    const filtered = stocks.searchStocks(value)
     setSearchedStocks(filtered)
   }
 
@@ -73,7 +73,7 @@ const Categories: React.FC<CategoriesProps> = ({
         <View>
           <Input
             style={styles.searchInput}
-            placeholder={t("search")}
+            placeholder={t('search')}
             value={search}
             onChangeText={handleSearch}
           />
@@ -87,26 +87,23 @@ const Categories: React.FC<CategoriesProps> = ({
           width: '100%',
         }}
       >
-        {search?.length
-          ? searchedStocks?.map((stock) => (
-              <StockBrand
-                stock={stock}
-                handleClick={() => ui.openPreviewStockModal(stock)}
-              />
-            ))
-          : rows.map((row) => (
-              <View key={generate()} style={{ flexDirection: 'row' }}>
-                {row.map((category) => (
-                  <View key={category._id} style={styles.category}>
-                    <CategoryLink
-                      key={category._id}
-                      category={category}
-                      onPress={() => goToCategory(category._id)}
-                    />
-                  </View>
-                ))}
-              </View>
-            ))}
+        {search?.length ? (
+          <StocksGrid stocks={searchedStocks} handleStockPress={ui.openPreviewStockModal} />
+        ) : (
+          rows.map((row) => (
+            <View key={generate()} style={{ flexDirection: 'row' }}>
+              {row.map((category) => (
+                <View key={category._id} style={styles.category}>
+                  <CategoryLink
+                    key={category._id}
+                    category={category}
+                    onPress={() => goToCategory(category._id)}
+                  />
+                </View>
+              ))}
+            </View>
+          ))
+        )}
       </View>
     </ScrollView>
   )
@@ -124,24 +121,25 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: Colors.secondary,
   },
+  searchInput: {
+    flex: 1,
+    width: Sizes.windowWidth * 0.70
+  },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     marginVertical: Spaces.vertical * 2,
     backgroundColor: Colors.secondary,
     flex: 1,
-    width: '100%'
+    width: '100%',
   },
   back: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  searchInput: {
-    backgroundColor: Colors.white,
-    borderWidth: 0,
+    paddingRight: Spaces.horizontal * 2
   },
   category: {
-    marginHorizontal: Spaces.horizontal,
+    marginHorizontal: Spaces.horizontal * 2,
   },
 })
 

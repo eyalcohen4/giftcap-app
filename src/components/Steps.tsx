@@ -16,7 +16,8 @@ type StepProps = {
 }
 
 type StepPanelProps = {
-  children: React.ReactNode
+  children: React.ReactNode,
+  show?: boolean
 }
 
 const StepIndicator: React.FC<StepProps> = ({
@@ -67,9 +68,10 @@ const Steps: React.FC<StepsProps> = ({ number, current }: StepsProps) => {
 }
 
 export const StepPanel: React.FC<StepPanelProps> = ({
+  show,
   children,
 }: StepPanelProps) => {
-  return <View style={styles.panel}>{children}</View>
+  return <View style={styles.panel}>{show ? children : null}</View>
 }
 
 const styles = StyleSheet.create({
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   panel: {
-    marginTop: Spaces.vertical * 5,
+    marginTop: Spaces.vertical,
   },
 })
 

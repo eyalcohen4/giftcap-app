@@ -1,6 +1,6 @@
-/* eslint-disable class-methods-use-this */
 import axios from 'axios'
 
+import { Gift } from './types';
 class Api {
   /**
    * send response to myplay node api.
@@ -18,7 +18,7 @@ class Api {
     data?: any,
     headers?: any
   ) {
-    const base = 'http://239f7e8f1a86.ngrok.io'
+    const base = 'http://9d9925a3e077.ngrok.io'
     const fullUrl = `${base}/${url}`
 
     return axios({
@@ -59,6 +59,14 @@ class Api {
   async getCategories() {
     const request = await this.sendRequest('GET', 'categories')
     return request.data.categories
+  }
+
+  async createGift(gift: Gift) {
+    const request = await this.sendRequest('POST', 'gifts', {
+      ...gift
+    })
+
+    return request.data.gift
   }
 }
 
