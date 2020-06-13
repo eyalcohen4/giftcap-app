@@ -13,6 +13,7 @@
     "@react-navigation/stack": "^5.4.2",
     "@use-expo/font": "^2.0.0",
     "axios": "^0.19.2",
+    "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
     "expo": "~37.0.3",
     "expo-constants": "~9.0.0",

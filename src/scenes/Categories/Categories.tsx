@@ -67,11 +67,19 @@ const Categories: React.FC<CategoriesProps> = ({
       contentContainerStyle={styles.contentContainer}
     >
       <View style={styles.header}>
-        <TouchableOpacity style={styles.back} onPress={goBack}>
-          <MaterialIcons name="arrow-forward" size={32} color="black" />
-        </TouchableOpacity>
-        <View>
+        <View style={styles.backButton}>
+          <TouchableOpacity onPress={goBack}>
+            <MaterialIcons
+              name="arrow-forward"
+              size={35}
+              color={Colors.black}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.inputContainer}>
           <Input
+            fill
+            containerStyle={styles.searchInputContainer}
             style={styles.searchInput}
             placeholder={t('search')}
             value={search}
@@ -81,14 +89,16 @@ const Categories: React.FC<CategoriesProps> = ({
       </View>
       <View
         style={{
-          flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
         }}
       >
         {search?.length ? (
-          <StocksGrid stocks={searchedStocks} handleStockPress={ui.openPreviewStockModal} />
+          <StocksGrid
+            stocks={searchedStocks}
+            handleStockPress={ui.openPreviewStockModal}
+          />
         ) : (
           rows.map((row) => (
             <View key={generate()} style={{ flexDirection: 'row' }}>
@@ -120,23 +130,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     backgroundColor: Colors.secondary,
+    marginTop: Spaces.vertical * 2
   },
-  searchInput: {
-    flex: 1,
-    width: Sizes.windowWidth * 0.70
-  },
+
   header: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginVertical: Spaces.vertical * 2,
-    backgroundColor: Colors.secondary,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Spaces.vertical * 2,
+    paddingHorizontal: Spaces.horizontal * 4,
     flex: 1,
     width: '100%',
   },
-  back: {
+  searchInputContainer: {
+    marginVertical: 0,
+  },
+  inputContainer: {
+    width: '75%',
+  },
+  searchInput: {
+    height: 45,
+    paddingHorizontal: Spaces.horizontal
+  },
+  backButton: {
+    width: '20%',
+    height: 50,
+    marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingRight: Spaces.horizontal * 2
   },
   category: {
     marginHorizontal: Spaces.horizontal * 2,

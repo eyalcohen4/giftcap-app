@@ -12,14 +12,21 @@ import { Routes } from './src/scenes'
 import RootStore from './src/stores'
 import { Header, SlideInPanel, AddStock, BuyCart } from './src/components'
 import { Sizes } from './src/styles'
-import { GIFT_PREVIEW_ROUTE_NAME, HOME_ROUTE_NAME } from './src/constants'
+import {
+  HOME_ROUTE_NAME,
+  LOGIN_ROUTE_NAME,
+  MY_GIFTS_ROUTE_NAME,
+  CATEGORIES_ROUTE_NAME,
+} from './src/constants'
+import { HeaderIcons } from './src/types'
 
 I18nManager.forceRTL(true)
+I18nManager.allowRTL(true)
 
 const root = new RootStore()
 
-function AppComponent() {
-  const { ui, buyer } = root
+function AppComponent({ loaded }) {
+  const { ui, user, buyer } = root
   let navigation
   let route
 
@@ -45,15 +52,32 @@ function AppComponent() {
     buyer.next()
   }
 
-  return (
+  const goToLogin = () => {
+    navigation.navigate(
+      user.isLoggedIn ? MY_GIFTS_ROUTE_NAME : LOGIN_ROUTE_NAME
+    )
+  }
+
+  const onSearch = () => {
+    if (ui.headerRightIcon === HeaderIcons.gift) {
+      navigation.navigate(HOME_ROUTE_NAME)
+    }
+
+    if (ui.headerRightIcon === HeaderIcons.search) {
+      navigation.navigate(CATEGORIES_ROUTE_NAME)
+    }
+  }
+
+  return loaded && root.isInitFinished ? (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header />
+      <Header onGoToLogin={goToLogin} onSearch={onSearch} />
       <View style={{ flex: 1 }}>
-        <Routes onRef={navRef => setNavigation(navRef)} />
+        <Routes onRef={(navRef) => setNavigation(navRef)} />
       </View>
       <SlideInPanel
         isOpen={ui.previewStockModal.open}
         onClose={() => ui.closePreviewStockModal()}
+        elliptic
       >
         <AddStock
           stock={ui.previewStockModal.stock}
@@ -62,12 +86,18 @@ function AppComponent() {
       </SlideInPanel>
       <SlideInPanel
         height={Sizes.cartHeight}
-        isOpen={buyer.gift.items?.length > 0 && !ui.previewStockModal.open && !ui.hideBuyCart}
+        isOpen={
+          buyer.gift.items?.length > 0 &&
+          !ui.previewStockModal.open &&
+          !ui.hideBuyCart
+        }
         showTouchable={false}
       >
         <BuyCart onPressNext={handleBuyCartNext} />
       </SlideInPanel>
     </SafeAreaView>
+  ) : (
+    <AppLoading />
   )
 }
 
@@ -79,10 +109,14 @@ function AppContainer() {
     rubik: require('./assets/fonts/Rubik-Regular.ttf'),
     RubikBold: require('./assets/fonts/Rubik-Bold.ttf'),
     RubikMedium: require('./assets/fonts/Rubik-Medium.ttf'),
+    Assistant: require('./assets/fonts/Assistant-Regular.ttf'),
+    AssistantBold: require('./assets/fonts/Assistant-Bold.ttf'),
+    AssistantExtraBold: require('./assets/fonts/Assistant-ExtraBold.ttf'),
   })
 
   useEffect(() => {
     if (I18nManager.isRTL != true) {
+      I18nManager.allowRTL(true)
       I18nManager.forceRTL(true)
     }
   }, [])
@@ -93,7 +127,7 @@ function AppContainer() {
         style={{ flex: 1 }}
         contentContainerStyle={{ flex: 1 }}
       >
-        {fontsLoaded ? <App /> : <AppLoading />}
+        <App loaded={fontsLoaded} />
       </KeyboardAwareScrollView>
     </Provider>
   )

@@ -1,4 +1,3 @@
-import { apth } from 'fs'
 export interface Stock {
   symbol: string
   exchange?: string
@@ -37,9 +36,11 @@ export interface GiftItem {
   id: string
   symbol: string
   value: number
+  stock?: Stock
 }
 
 export interface Gift {
+  _id: string
   items: GiftItem[]
   message: string
   giverName: string
@@ -47,4 +48,10 @@ export interface Gift {
   receiverName: string
   receiverPhone: string
   isOpen: boolean
+  createdAt?: string
+}
+
+export enum HeaderIcons {
+  gift = "gift",
+  search = "search"
 }

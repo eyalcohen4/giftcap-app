@@ -23,6 +23,11 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "android": {
+      "package": "com.giftcap.giftcap",
+      "versionCode": 1
+    },
+    "scheme": "giftcap"
   }
 }

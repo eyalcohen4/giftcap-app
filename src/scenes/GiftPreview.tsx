@@ -47,9 +47,9 @@ const GiftPreview: React.FC<GiftPreviewProps> = ({
       duration={200}
       style={styles.container}
     >
-      <Present />
+      <Present gift={buyer.gift} />
       <View style={styles.footer}>
-        <Button onPress={goNext}>
+        <Button onPress={goNext} style={{ marginBottom: Spaces.vertical * 2 }}>
           <Text>{t('continueToOrder')}</Text>
         </Button>
         <TouchableOpacity onPress={goBack}>

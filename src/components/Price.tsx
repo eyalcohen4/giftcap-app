@@ -16,7 +16,11 @@ const Price: React.FC<PriceProps> = ({ value }: PriceProps) => {
   return (
     <Circle size={65}>
       <View style={styles.container}>
-        <Text size={FontSizes.small} style={styles.price} bold>
+        <Text
+          size={FontSizes.small}
+          color={Colors.primary}
+          bold
+        >
           {value}
           {t('currency')}
         </Text>
@@ -26,13 +30,10 @@ const Price: React.FC<PriceProps> = ({ value }: PriceProps) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 1
-    },
-  price: {
-    color: Colors.primary,
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
   },
 })
 

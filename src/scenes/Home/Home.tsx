@@ -6,7 +6,12 @@ import GiftPreview from '../GiftPreview'
 import RootStore from '../../stores'
 import { Colors, Spaces } from '../../styles'
 import { SENT_GIFT_SUCCESS_ROUTE_NAME } from '../../constants'
-import { Steps, StepPanel, SelectStocksStep, DetailsStep } from '../../components'
+import {
+  Steps,
+  StepPanel,
+  SelectStocksStep,
+  DetailsStep,
+} from '../../components'
 
 type HomeProps = {
   navigation: any
@@ -23,7 +28,9 @@ const Home: React.FC<HomeProps> = ({ root, navigation }: HomeProps) => {
   return (
     <View style={styles.home}>
       <View style={styles.main}>
-        <Steps number={buyer.steps.length} current={buyer.currentStep} />
+        <View style={{ marginVertical: Spaces.vertical * 2 }}>
+          <Steps number={buyer.steps.length} current={buyer.currentStep} />
+        </View>
         <StepPanel show={buyer.currentStep === 0}>
           <SelectStocksStep navigate={navigation.navigate} />
         </StepPanel>

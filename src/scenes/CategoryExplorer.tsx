@@ -48,9 +48,9 @@ const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
           </TouchableOpacity>
         </View>
         <View
-          style={[styles.categoryName, { backgroundColor: category.color }]}
+          style={[styles.categoryName, { backgroundColor: category?.color }]}
         >
-          <Text style={{ color: Colors.white }}>{category.name.he}</Text>
+          <Text color={Colors.white}>{category.name.he}</Text>
         </View>
       </View>
       <StocksGrid stocks={categoryStocks} handleStockPress={handleStockClick} />

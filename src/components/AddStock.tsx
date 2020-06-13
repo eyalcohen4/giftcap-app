@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { Text, Button, StockBrand, Price, Input } from './'
 import { Stock } from '../types'
 import { Colors, Spaces, FontSizes } from '../styles'
-import { TouchableHighlight } from 'react-native-gesture-handler'
 
 type AddStockProps = {
   stock: Stock
@@ -45,7 +44,7 @@ const AddStock: React.FC<AddStockProps> = ({
         </Text>
       </View>
       <View style={styles.value}>
-        <Text size={FontSizes.larger} style={styles.cta}>
+        <Text color={Colors.black} size={FontSizes.larger}>
           {t('addStockPrice')}
         </Text>
         <View style={styles.prices}>
@@ -85,11 +84,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   name: {
-    color: Colors.black,
     marginTop: Spaces.vertical,
-  },
-  cta: {
-    color: Colors.primary,
   },
   brand: {
     height: 100,
@@ -109,7 +104,8 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: Spaces.vertical * 2,
-    fontWeight: "900",
+    fontWeight: 900,
+    width: '80%'
   },
   footer: {
     marginTop: Spaces.vertical * 2,

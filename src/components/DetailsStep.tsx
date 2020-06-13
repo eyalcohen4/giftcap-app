@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { observer, inject } from 'mobx-react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useTranslation } from 'react-i18next'
 import * as Animated from 'react-native-animatable'
 
@@ -11,7 +12,7 @@ import validateEmail from '../utils/validate-email'
 import { Colors, Spaces } from '../styles'
 
 type DetailsStepProps = {
-  root?: Root,
+  root?: Root
   onFinish: Function
 }
 
@@ -47,7 +48,7 @@ const ReceiverDetails = ({ onSubmit }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.stepContainer}>
       <View style={{ marginBottom: Spaces.vertical * 2 }}>
         <Text style={{ color: Colors.primary }}>{t('reciverDetails')}</Text>
       </View>
@@ -64,7 +65,8 @@ const ReceiverDetails = ({ onSubmit }) => {
         style={styles.input}
         value={phone}
         onChangeText={(value) => setPhone(value)}
-        placeholder={t('receiverPhone')}
+        placeholder={t('phone')}
+        subtext={t('phoneInputSubtext')}
       />
       <Input
         style={[styles.input, { height: 150, textAlignVertical: 'top' }]}
@@ -76,7 +78,7 @@ const ReceiverDetails = ({ onSubmit }) => {
       />
       <Button
         small
-        style={{ marginTop: Spaces.vertical * 2 }}
+        style={{ marginTop: Spaces.vertical * 5 }}
         onPress={handleSend}
       >
         <Text>{t('next')}</Text>
@@ -111,13 +113,13 @@ const GiverDetails = ({ onSubmit }) => {
 
     onSubmit({
       giverName: name,
-      giverEmail: email
+      giverEmail: email,
     })
   }
 
   return (
     <Animated.View
-      style={styles.container}
+      style={styles.stepContainer}
       animation="slideInRight"
       duration={200}
     >
@@ -137,9 +139,10 @@ const GiverDetails = ({ onSubmit }) => {
         value={email}
         onChangeText={(value) => setEmail(value)}
         placeholder={t('giverEmail')}
+        subtext={t('emailInputSubtext')}
       />
       <Button
-        style={{ marginTop: Spaces.vertical * 3 }}
+        style={{ marginTop: Spaces.vertical * 5 }}
         small
         onPress={handleSend}
       >
@@ -149,7 +152,7 @@ const GiverDetails = ({ onSubmit }) => {
   )
 }
 
-const PaymentDetails = ({ onSubmit }) => {
+const PaymentDetails = ({ gift, onSubmit }) => {
   const { t } = useTranslation()
 
   const [creditNumber, setCreditNumber] = useState('')
@@ -164,7 +167,7 @@ const PaymentDetails = ({ onSubmit }) => {
 
   return (
     <Animated.View
-      style={styles.container}
+      style={styles.stepContainer}
       animation="slideInRight"
       duration={200}
     >
@@ -180,22 +183,28 @@ const PaymentDetails = ({ onSubmit }) => {
         placeholder={t('creditCardNum')}
       />
       <View style={{ flexDirection: 'row' }}>
-        <Input
-          error={errors.email}
-          style={[styles.input, { width: 105, marginHorizontal: 5 }]}
-          value={date}
-          onChangeText={(value) => setMonth(value)}
-          placeholder={t('month')}
-          keyboardType="numeric"
-        />
-        <Input
-          error={errors.email}
-          style={[styles.input, { width: 105, marginHorizontal: 5 }]}
-          value={year}
-          onChangeText={(value) => setYear(value)}
-          placeholder={t('year')}
-          keyboardType="numeric"
-        />
+        <View style={[styles.date, { marginRight: Spaces.horizontal / 2 }]}>
+          <Input
+            error={errors.email}
+            style={styles.input}
+            value={date}
+            maxLength={2}
+            onChangeText={(value) => setMonth(value)}
+            placeholder={t('month')}
+            keyboardType="numeric"
+          />
+          </View>
+          <View style={[styles.date]}>
+          <Input
+            error={errors.email}
+            style={[styles.input]}
+            value={year}
+            maxLength={2}
+            onChangeText={(value) => setYear(value)}
+            placeholder={t('year')}
+            keyboardType="numeric"
+          />
+          </View>
       </View>
       <Input
         style={styles.input}
@@ -205,22 +214,21 @@ const PaymentDetails = ({ onSubmit }) => {
         keyboardType="numeric"
         placeholder={t('personId')}
       />
-
       <Button
-        style={{ marginTop: Spaces.vertical * 2 }}
+        style={{ marginTop: Spaces.vertical * 5 }}
         small
         onPress={handleSend}
       >
-        <Text>{t('next')}</Text>
+        <Text>{t('sendGift')}</Text>
       </Button>
-      <Present light style={styles.present} />
+      <Present light style={styles.present} gift={gift} />
     </Animated.View>
   )
 }
 
 const DetailsStep: React.FC<DetailsStepProps> = ({
   root,
-  onFinish
+  onFinish,
 }: DetailsStepProps) => {
   const { buyer } = root as Root
   const { t } = useTranslation()
@@ -264,15 +272,23 @@ const DetailsStep: React.FC<DetailsStepProps> = ({
     }
   }
 
-  const handleBack = () => {}
+  const handleBack = () => {
+    if (step === 0) {
+      buyer.previous()
+    }
+
+    setStep(step - 1)
+  }
 
   return (
-    <View style={styles.container}>
-      <Comp onSubmit={handleNext} />
-      <TouchableOpacity onPress={handleBack}>
-        <Text style={styles.back}>{t('back')}</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAwareScrollView>
+      <View style={styles.container}>
+        <Comp onSubmit={handleNext} gift={buyer.gift} />
+        <TouchableOpacity onPress={handleBack}>
+          <Text style={styles.back}>{t('back')}</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAwareScrollView>
   )
 }
 
@@ -280,11 +296,15 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+  },
+  stepContainer: {
+    width: '80%',
+    alignItems: 'center',
   },
   input: {},
   back: {
-    marginTop: Spaces.vertical,
+    marginTop: Spaces.vertical * 2,
     color: Colors.primary,
   },
   present: {
@@ -293,6 +313,9 @@ const styles = StyleSheet.create({
     marginTop: Spaces.vertical * 2,
     borderWidth: 2,
   },
+  date: { 
+    width: '50%',
+  }
 })
 
 export default inject('root')(observer(DetailsStep))

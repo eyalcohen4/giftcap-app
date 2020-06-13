@@ -37,7 +37,7 @@ const BuyCart: React.FC<BuyCartProps> = ({ root, onPressNext }: BuyCartProps) =>
               size="small"
               handleClick={() => {}}
             />
-            <Text size={FontSizes.smaller} style={styles.price}>
+            <Text color={Colors.primary} size={FontSizes.smaller}>
               {item.value}
               {t('currency')}
             </Text>
@@ -74,9 +74,6 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     zIndex: 2,
-  },
-  price: {
-    color: Colors.primary,
   },
   next: {
     flex: 1,

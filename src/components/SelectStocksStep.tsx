@@ -65,7 +65,7 @@ const SelectStocksStep: React.FC<SelectStockStepProps> = ({
   navigate,
 }: SelectStockStepProps) => {
   const { stocks, ui } = root as RootStore
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState('')
   const [searchedStocks, setSearchedStocks] = useState([])
   const { t } = useTranslation()
 
@@ -75,7 +75,7 @@ const SelectStocksStep: React.FC<SelectStockStepProps> = ({
   //     ui.toggleBuyCart(false)
   //   } else {
   //     ui.toggleBuyCart(true)
-      
+
   //   }
   // }, [search])
 
@@ -92,12 +92,6 @@ const SelectStocksStep: React.FC<SelectStockStepProps> = ({
 
   return (
     <View style={{ marginTop: Spaces.vertical * 2 }}>
-      <Input
-        style={styles.searchInput}
-        placeholder={t('search')}
-        value={search}
-        onChangeText={handleSearch}
-      />
       <Text
         style={{ color: Colors.primary, textAlign: 'left' }}
         size={FontSizes.large}
@@ -141,10 +135,15 @@ const styles = StyleSheet.create({
   stocks: {
     height: 95,
   },
-  searchInput: {
+  search: {
     width: '80%',
+    alignItems: 'center',
     alignSelf: 'center',
+    justifyContent: 'center'
+  },
+  searchInput: {
     marginBottom: Spaces.vertical * 2,
+    textAlign: 'center',
   },
   moreStocks: {
     marginRight: -8,

@@ -32,7 +32,7 @@ const StepIndicator: React.FC<StepProps> = ({
     <View style={styles.step}>
       <Circle size="small" color={color}>
         <View style={styles.stepNumber}>
-          <Text style={{ color: fontColor }}>{index + 1}</Text>
+          <Text color={fontColor}>{index + 1}</Text>
         </View>
       </Circle>
       {withLine ? <View style={styles.divider} /> : null}

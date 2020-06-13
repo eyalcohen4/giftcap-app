@@ -9,16 +9,12 @@ class BuyStore {
   @observable steps = [
     {
       name: 'selectStock',
-      isFinished: false,
-      validate: () => this.gift.items.length > 0,
     },
     {
       name: 'personalDetails',
-      isFinished: false,
     },
     {
       name: 'payment',
-      isFinished: false,
     },
   ]
 
@@ -65,9 +61,23 @@ class BuyStore {
     this.gift.items.splice(index, 1)
   }
 
-  buy() {
+  finish = () => {
+    this.resetGift()
+    this.currentStep = 0
+  }
+
+  resetGift = () => {
+    this.gift = {
+      items: [],
+      receiverName: '',
+      receiverPhone: '',
+      message: '',
+    }
+  }
+
+  buy = async () => {
     try {
-      api.createGift(this.gift)
+      await api.createGift(this.gift)
     } catch (error) {
       console.log(error)
     }

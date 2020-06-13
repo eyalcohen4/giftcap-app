@@ -1,5 +1,5 @@
-import { Stock } from './../types'
 import { observable } from 'mobx'
+import { Stock, HeaderIcons } from './../types'
 
 type PreviewStockModal = {
     open: boolean,
@@ -12,6 +12,7 @@ class Ui {
     stock: null,
   }
   @observable hideBuyCart: boolean = false 
+  @observable headerRightIcon = HeaderIcons.search
 
   openPreviewStockModal = (stock: Stock) => {
     this.previewStockModal.open = true
@@ -25,6 +26,10 @@ class Ui {
   
   toggleBuyCart = (isOpen: boolean = false) => {
     this.hideBuyCart = isOpen || !this.hideBuyCart
+  }
+
+  setHeaderIcon = (icon: HeaderIcons) => {
+    this.headerRightIcon = icon
   }
 }
 

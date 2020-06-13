@@ -29,13 +29,17 @@ class Stocks {
   @observable popular: CategoryStocks = {}
 
   async fetchStocks() {
-    const categories = await api.getCategories()
-    const stocks = await api.getStocks()
+    try {
+      const categories = await api.getCategories()
+      const stocks = await api.getStocks()
 
-    this.categories = normalize(categories)
-    this.stocks = normalize(stocks)
+      this.categories = normalize(categories)
+      this.stocks = normalize(stocks)
 
-    this.setPopulars()
+      this.setPopulars()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   setPopulars() {

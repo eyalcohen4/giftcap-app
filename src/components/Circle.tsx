@@ -8,6 +8,7 @@ export type CircleSize = 'big' | 'small' | number
 type CircleProps = {
   size?: CircleSize
   color?: Colors
+  style?: any,
   children?: ReactNode
 }
 
@@ -35,6 +36,7 @@ function createSize(size: string | number) {
 const Circle: React.FC<CircleProps> = ({
   size,
   color,
+  style,
   children,
 }: CircleProps) => {
   const circleSize = createSize(size)
@@ -44,7 +46,7 @@ const Circle: React.FC<CircleProps> = ({
   })
 
   return (
-    <View style={[styles.circle, computed.size, computed.color]}>
+    <View style={[styles.circle, computed.size, computed.color, style]}>
       {children}
     </View>
   )
@@ -57,13 +59,13 @@ Circle.defaultProps = {
 
 const styles = StyleSheet.create({
   circle: {
-    shadowColor: 'rgba(0, 0, 0, 0.2)',
+    shadowColor: 'rgba(0, 0, 0, 0.3)',
     shadowOffset: {
       width: 0,
       height: 0,
     },
-    shadowRadius: 5,
-    shadowOpacity: 1,
+    shadowRadius: 10,
+    shadowOpacity: 0.25,
     elevation: 1,
   },
 })

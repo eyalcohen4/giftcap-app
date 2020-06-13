@@ -12,7 +12,7 @@ type SlideInPanelProps = {
   isOpen: boolean
   onClose?: Function
   height?: number
-
+  elliptic?: boolean,
   showTouchable?: boolean
 }
 
@@ -21,6 +21,7 @@ const SlideInPanel: React.FC<SlideInPanelProps> = ({
   onClose,
   height,
   showTouchable,
+  elliptic,
   children,
 }: SlideInPanelProps) => {
   const { t } = useTranslation()
@@ -36,18 +37,26 @@ const SlideInPanel: React.FC<SlideInPanelProps> = ({
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (e, gestureState) => {
-      if (onClose && gestureState.dy > 5) {
+      if (onClose && gestureState.dy > 3) {
         handleClose()
       }
     },
   })
+
+  const ellipticStyle = elliptic ? {
+    borderTopLeftRadius: 80,
+    borderTopRightRadius: 80,
+    shadowColor: 'rgba(145, 145, 145, 0.8)',
+  } : {
+    shadowColor: 'rgba(145, 145, 145, 0.2)',
+  }
 
   return isOpen ? (
     <Animatable.View
       {...panResponder.panHandlers}
       ref={(ref) => (viewRef = ref)}
       animation="slideInUp"
-      style={[styles.container, { height: height || Sizes.slideInPanel }]}
+      style={[styles.container, { height: height || Sizes.slideInPanel }, ellipticStyle]}
       easing="ease-in"
       duration={200}
     >
@@ -72,13 +81,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     paddingTop: Spaces.vertical,
     alignItems: 'center',
-    shadowColor: 'rgba(145, 145, 145, 0.2)',
+    
     shadowOffset: {
       width: 0,
       height: 10,
     },
     shadowRadius: 30,
-    shadowOpacity: 1,
+    shadowOpacity: 1
   },
   touchable: {
     width: 105,
