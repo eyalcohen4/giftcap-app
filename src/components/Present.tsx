@@ -9,11 +9,13 @@ import { FontSizes, Colors, Sizes, Spaces } from '../styles'
 import Root from '../stores'
 import toRows from '../utils/toRows'
 import { useTranslation } from 'react-i18next'
+import { CircleSize } from './Circle'
 
 type PresentProps = {
   root?: Root
   gift: Gift
   light?: boolean
+  stocksSize?: CircleSize
   style?: any
 }
 
@@ -21,6 +23,7 @@ const Present: React.FC<PresentProps> = ({
   root,
   gift,
   light,
+  stocksSize,
   style,
 }: PresentProps) => {
   const { stocks } = root as Root
@@ -46,6 +49,7 @@ const Present: React.FC<PresentProps> = ({
   }, [])
 
   const rows = toRows(items)
+  const justifyContent = items.length < 2 ? 'center' : 'flex-start'
 
   return (
     <View style={[styles.card, style]}>
@@ -57,33 +61,37 @@ const Present: React.FC<PresentProps> = ({
       >
         {t('GiftCap')}
       </Text>
-        <ScrollView
-          contentContainerStyle={styles.itemsContainer}
-          horizontal
-        >
-          {rows.map((rowItems) => (
-            <View key={generate()} style={styles.items}>
-              {rowItems?.map((item) => (
-                <View key={item.symbol} style={styles.item}>
-                  <StockBrand
-                    stock={stocks.getStockBySymbol(item.symbol)}
-                    size="small"
-                    handleClick={() => {}}
-                  />
-                  <Text size={FontSizes.smaller} style={styles.price}>
-                    {item.value}
-                    {t('currency')}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          ))}
-        </ScrollView>
+      <ScrollView
+        contentContainerStyle={[styles.itemsContainer, { justifyContent }]}
+        horizontal
+      >
+        {rows.map((rowItems) => (
+          <View key={generate()} style={styles.items}>
+            {rowItems?.map((item) => (
+              <View key={item.symbol} style={styles.item}>
+                <StockBrand
+                  stock={stocks.getStockBySymbol(item.symbol)}
+                  size={stocksSize}
+                  handleClick={() => {}}
+                />
+                <Text size={FontSizes.smaller} style={styles.price}>
+                  {item.value}
+                  {t('currency')}
+                </Text>
+              </View>
+            ))}
+          </View>
+        ))}
+      </ScrollView>
       <Text style={{ color: Colors.primary, alignSelf: 'center' }}>
         {t('giftSumOf')} {giftValue} {t('currency')}
       </Text>
     </View>
   )
+}
+
+Present.defaultProps = {
+  stocksSize: 'big',
 }
 
 const styles = StyleSheet.create({
@@ -92,7 +100,6 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 300,
-    height: 300,
     alignSelf: 'center',
     height: Sizes.windowHeight * 0.4,
     padding: Spaces.vertical * 2,
@@ -103,8 +110,7 @@ const styles = StyleSheet.create({
   },
   itemsContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
+    flex: 1,
   },
   footer: {
     marginTop: Spaces.vertical * 3,

@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Spaces.vertical * 2,
     paddingHorizontal: Spaces.horizontal * 2,
+    overflow: 'scroll'
   },
   title: {
     textAlign: 'center',

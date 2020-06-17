@@ -63,6 +63,7 @@ const GiftPreview: React.FC<GiftPreviewProps> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    overflow: 'scroll'
   },
   card: {
     width: '80%',

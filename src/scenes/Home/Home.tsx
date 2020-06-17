@@ -1,6 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { View, StyleSheet } from 'react-native'
+import { View, ScrollView, StyleSheet } from 'react-native'
 
 import GiftPreview from '../GiftPreview'
 import RootStore from '../../stores'
@@ -26,7 +26,7 @@ const Home: React.FC<HomeProps> = ({ root, navigation }: HomeProps) => {
   }
 
   return (
-    <View style={styles.home}>
+    <ScrollView style={styles.home}>
       <View style={styles.main}>
         <View style={{ marginVertical: Spaces.vertical * 2 }}>
           <Steps number={buyer.steps.length} current={buyer.currentStep} />
@@ -41,7 +41,7 @@ const Home: React.FC<HomeProps> = ({ root, navigation }: HomeProps) => {
           <DetailsStep onFinish={handleFinish} />
         </StepPanel>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

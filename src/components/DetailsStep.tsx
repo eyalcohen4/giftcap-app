@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { observer, inject } from 'mobx-react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -53,6 +53,7 @@ const ReceiverDetails = ({ onSubmit }) => {
         <Text style={{ color: Colors.primary }}>{t('reciverDetails')}</Text>
       </View>
       <Input
+        autoFocus
         style={styles.input}
         value={name}
         error={errors.name}
@@ -69,7 +70,8 @@ const ReceiverDetails = ({ onSubmit }) => {
         subtext={t('phoneInputSubtext')}
       />
       <Input
-        style={[styles.input, { height: 150, textAlignVertical: 'top' }]}
+        autoFocus={false}
+        style={styles.messageInput}
         numberOfLines={10}
         multiline
         value={message}
@@ -96,7 +98,6 @@ const GiverDetails = ({ onSubmit }) => {
 
   const handleSend = () => {
     const isEmailValid = validateEmail(email)
-    console.log(isEmailValid)
     const errors = {
       name: name ? '' : t('nameIsRequired'),
       email: email
@@ -159,9 +160,11 @@ const PaymentDetails = ({ gift, onSubmit }) => {
   const [date, setMonth] = useState('')
   const [year, setYear] = useState('')
   const [personId, setPersonId] = useState('')
+  const [isSent, setIsSent] = useState(false)
   const [errors, setErrors] = useState({ name: '', email: '' })
 
   const handleSend = () => {
+    setIsSent(true)
     onSubmit()
   }
 
@@ -193,8 +196,8 @@ const PaymentDetails = ({ gift, onSubmit }) => {
             placeholder={t('month')}
             keyboardType="numeric"
           />
-          </View>
-          <View style={[styles.date]}>
+        </View>
+        <View style={[styles.date]}>
           <Input
             error={errors.email}
             style={[styles.input]}
@@ -204,7 +207,7 @@ const PaymentDetails = ({ gift, onSubmit }) => {
             placeholder={t('year')}
             keyboardType="numeric"
           />
-          </View>
+        </View>
       </View>
       <Input
         style={styles.input}
@@ -215,13 +218,14 @@ const PaymentDetails = ({ gift, onSubmit }) => {
         placeholder={t('personId')}
       />
       <Button
-        style={{ marginTop: Spaces.vertical * 5 }}
         small
+        disabled={isSent}
+        style={{ marginTop: Spaces.vertical * 5 }}
         onPress={handleSend}
       >
         <Text>{t('sendGift')}</Text>
       </Button>
-      <Present light style={styles.present} gift={gift} />
+      <Present stocksSize="small" light style={styles.present} gift={gift} />
     </Animated.View>
   )
 }
@@ -303,6 +307,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {},
+  messageInput: {
+    textAlignVertical: 'top',
+  },
   back: {
     marginTop: Spaces.vertical * 2,
     color: Colors.primary,
@@ -313,9 +320,9 @@ const styles = StyleSheet.create({
     marginTop: Spaces.vertical * 2,
     borderWidth: 2,
   },
-  date: { 
+  date: {
     width: '50%',
-  }
+  },
 })
 
 export default inject('root')(observer(DetailsStep))

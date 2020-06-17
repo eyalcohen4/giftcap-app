@@ -64,6 +64,9 @@ const Register: React.FC<RegisterProps> = ({ root, onNext }: RegisterProps) => {
         >
           {t('choosePassword')}
         </Text>
+        <Text style={styles.title} color={Colors.primary}>
+          {t('choosePasswordSubtext')}
+        </Text>
       </View>
       <View style={styles.inputContainer}>
         <Input

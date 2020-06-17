@@ -52,9 +52,9 @@ const Routes: React.FC<RoutesProps> = ({ root, onRef }: RoutesProps) => {
   }
 
   return (
-    <NavigationContainer linking={linking} ref={onRef}>
+    <NavigationContainer linking={linking} ref={onRef} style={{ overflow: 'scroll' }}>
       <Stack.Navigator
-        style={{ overflow: 'visible' }}
+        style={{ overflow: 'scroll' }}
         initialRouteName={
           user.isLoggedIn ? MY_GIFTS_ROUTE_NAME : INSTRUCTIONS_ROUTE_NAME
         }
@@ -62,6 +62,9 @@ const Routes: React.FC<RoutesProps> = ({ root, onRef }: RoutesProps) => {
         screenOptions={{
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           ...TransitionPresets.ScaleFromCenterAndroid,
+          cardStyle: {
+            overflow: 'scroll'
+          },
         }}
       >
         <Stack.Screen name={HOME_ROUTE_NAME} component={Home} />
@@ -86,16 +89,21 @@ const Routes: React.FC<RoutesProps> = ({ root, onRef }: RoutesProps) => {
           options={{
             cardStyleInterpolator:
               CardStyleInterpolators.forRevealFromBottomAndroid,
+              
           }}
         />
         <Stack.Screen name={CLAIM_ROUTE_NAME} component={ClaimProcess} />
         <Stack.Screen
-          style={{ overflow: 'visible' }}
+          style={{ overflow: 'scroll' }}
           name={MY_GIFTS_ROUTE_NAME}
           component={MyGifts}
         />
         <Stack.Screen name={LOGIN_ROUTE_NAME} component={Login} />
-        <Stack.Screen name={INSTRUCTIONS_ROUTE_NAME} component={Instructions} />
+        <Stack.Screen name={INSTRUCTIONS_ROUTE_NAME} component={Instructions} options={{
+          cardStyle: {
+            overflow: 'scroll'
+          }
+        }} />
       </Stack.Navigator>
     </NavigationContainer>
   )

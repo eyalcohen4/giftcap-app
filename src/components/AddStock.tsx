@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   value: {
-    marginTop: Spaces.vertical * 3,
     justifyContent: 'center',
     alignItems: 'center',
   },

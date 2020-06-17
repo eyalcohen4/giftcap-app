@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   category: {
-    marginHorizontal: Spaces.horizontal * 2,
+    marginHorizontal: Spaces.horizontal,
   },
 })
 

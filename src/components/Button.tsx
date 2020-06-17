@@ -7,12 +7,14 @@ type ButtonProps = {
   onPress: Function
   small?: boolean
   style?: any
+  disabled?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
   onPress,
   small,
+  disabled,
   style,
 }: ButtonProps) => {
   const sizes = {
@@ -27,6 +29,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={[styles.container, { ...size }, style]}
       onPress={onPress}
     >
@@ -45,7 +48,7 @@ const styles = StyleSheet.create({
 })
 
 Button.defaultProps = {
-  size: 'big',
+  small: false
 }
 
 export default Button

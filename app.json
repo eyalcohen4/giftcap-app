@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "GiftCap",
+    "slug": "giftcap",
     "platforms": [
       "ios",
       "android",
@@ -27,6 +27,15 @@
     "android": {
       "package": "com.giftcap.giftcap",
       "versionCode": 1
+    },
+    "web": {
+      "config": {
+        "firebase": {
+          "appId": "1:983369406908:web:5b7717b6d713c7651c73b9",
+          "apiKey": "AIzaSyCPYubT30X8s2yKEKp6w_DHCye7YWjO72o",
+          "measurementId": "G-8QCW7XBW02"
+        }
+      }
     },
     "scheme": "giftcap"
   }

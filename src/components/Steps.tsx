@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
 import { Circle, Text } from './'
-import { Colors, Spaces } from '../styles'
+import { Colors, Spaces, moderateScale, Sizes } from '../styles'
 
 type StepsProps = {
   number: number
@@ -11,12 +11,12 @@ type StepsProps = {
 
 type StepProps = {
   isSelected?: boolean
-  withLine?: boolean,
-  index: number,
+  withLine?: boolean
+  index: number
 }
 
 type StepPanelProps = {
-  children: React.ReactNode,
+  children: React.ReactNode
   show?: boolean
 }
 
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   divider: {
-    width: 80,
+    width: Sizes.windowWidth / 4,
     height: 1,
     borderStyle: 'solid',
     borderWidth: 1,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   stepNumber: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   panel: {
     marginTop: Spaces.vertical,

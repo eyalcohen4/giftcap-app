@@ -19,6 +19,7 @@ import {
   CATEGORIES_ROUTE_NAME,
 } from './src/constants'
 import { HeaderIcons } from './src/types'
+import { ScrollView } from 'react-native-gesture-handler'
 
 I18nManager.forceRTL(true)
 I18nManager.allowRTL(true)
@@ -125,9 +126,9 @@ function AppContainer() {
     <Provider root={root}>
       <KeyboardAwareScrollView
         style={{ flex: 1 }}
-        contentContainerStyle={{ flex: 1 }}
+        contentContainerStyle={{ flex: 1, overflow: 'scroll' }}
       >
-        <App loaded={fontsLoaded} />
+          <App loaded={fontsLoaded} />
       </KeyboardAwareScrollView>
     </Provider>
   )

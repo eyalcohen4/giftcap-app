@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   account: {
     alignItems: 'center',
-    paddingRight: Spaces.horizontal * 2,
+    paddingRight: Spaces.horizontal * 1,
   },
 })
 

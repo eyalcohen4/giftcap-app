@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     paddingTop: Spaces.vertical,
     alignItems: 'center',
-    
     shadowOffset: {
       width: 0,
       height: 10,

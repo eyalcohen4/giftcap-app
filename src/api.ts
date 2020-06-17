@@ -24,7 +24,7 @@ class Api {
     data?: any,
     headers?: any
   ) {
-    const base = 'http://localhost:5000'
+    const base = 'https://api.giftcap.co.il'
     const fullUrl = `${base}/${url}`
 
     const headersWithKey = {

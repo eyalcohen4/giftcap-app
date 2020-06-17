@@ -3,7 +3,7 @@ import { TouchableOpacity, StyleSheet } from 'react-native'
 
 import { Text } from './'
 import { Category } from '../types'
-import { Spaces } from '../styles'
+import { Spaces, Sizes } from '../styles'
 
 type CategoryLinkProps = {
   category: Category,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 8,
     height: 150,
-    width: 150,
+    width: Sizes.windowWidth * 0.4,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: 'rgba(0, 0, 0, 0.1)',

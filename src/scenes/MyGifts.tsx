@@ -161,7 +161,7 @@ const MyGifts: React.FC<MyGiftsProps> = ({ root }: MyGiftsProps) => {
 const styles = StyleSheet.create({
   container: {
     zIndex: 99999,
-    overflow: 'visible',
+    overflow: 'scroll',
     marginVertical: Spaces.vertical * 2,
     justifyContent: 'center',
     alignItems: 'center',

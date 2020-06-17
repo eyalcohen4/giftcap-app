@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, ScrollView, StyleSheet, Image } from 'react-native'
 import { inject, observer } from 'mobx-react'
 import { AntDesign } from '@expo/vector-icons'
 import * as Aminated from 'react-native-animatable'
@@ -35,7 +35,12 @@ const Claim: React.FC<ClaimProps> = ({ gift, onNext }: ClaimProps) => {
   return (
     <View>
       <View style={styles.header}>
-        <Text color={Colors.primary} size={FontSizes.larger} bolder>
+        <Text
+          color={Colors.primary}
+          size={FontSizes.larger}
+          bolder
+          style={styles.headerClaimTitle}
+        >
           {t('youGotAGift')}
           {gift?.giverName}
         </Text>
@@ -124,7 +129,7 @@ const ClaimProcess: React.FC<ClaimProcessProps> = ({
   }
 
   return (
-    <View>
+    <ScrollView>
       {error ? (
         <Text>{t('noSuchGift')}</Text>
       ) : isLoading ? (
@@ -173,7 +178,7 @@ const ClaimProcess: React.FC<ClaimProcessProps> = ({
           </StepPanel>
         </>
       )}
-    </View>
+    </ScrollView>
   )
 }
 
@@ -206,6 +211,9 @@ const styles = StyleSheet.create({
   finish: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  headerClaimTitle: {
+    textAlign: 'center',
   },
   finishImage: {
     width: 100,
