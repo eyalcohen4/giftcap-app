@@ -8,17 +8,18 @@ import { FontSizes, Colors } from '../styles'
 
 type PriceProps = {
   value: number
+  isSelected?: boolean
 }
 
-const Price: React.FC<PriceProps> = ({ value }: PriceProps) => {
+const Price: React.FC<PriceProps> = ({ value, isSelected }: PriceProps) => {
   const { t } = useTranslation()
 
   return (
-    <Circle size={65}>
+    <Circle size={65} color={isSelected ? Colors.primary : Colors.white}>
       <View style={styles.container}>
         <Text
           size={FontSizes.small}
-          color={Colors.primary}
+          color={isSelected ? Colors.white : Colors.primary}
           bold
         >
           {value}

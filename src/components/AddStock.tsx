@@ -48,13 +48,16 @@ const AddStock: React.FC<AddStockProps> = ({
           {t('addStockPrice')}
         </Text>
         <View style={styles.prices}>
-          {defaultValues.map((value) => (
+          {defaultValues.map((defaultValue) => (
             <TouchableOpacity
-              key={value}
+              key={defaultValue}
               style={styles.price}
-              onPress={() => handleValueChange(`${value}`)}
+              onPress={() => handleValueChange(`${defaultValue}`)}
             >
-              <Price value={value} />
+              <Price
+                value={defaultValue}
+                isSelected={parseInt(defaultValue, 10) === parseInt(value, 10)}
+              />
             </TouchableOpacity>
           ))}
         </View>
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
   input: {
     marginTop: Spaces.vertical * 2,
     fontWeight: 900,
-    width: '80%'
+    width: '80%',
   },
   footer: {
     marginTop: Spaces.vertical * 2,

@@ -50,6 +50,8 @@ class Stocks {
     }
 
     const popularStocks = this.getCategoryStocks(popular._id)
+    popularStocks.reverse()
+
     this.popular = {
       category: popular,
       stocks: popularStocks,

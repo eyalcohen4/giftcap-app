@@ -48,6 +48,7 @@ const Home: React.FC<HomeProps> = ({ root, navigation }: HomeProps) => {
 const styles = StyleSheet.create({
   home: {
     flex: 1,
+    backgroundColor: Colors.secondary,
   },
   main: {
     backgroundColor: Colors.secondary,
